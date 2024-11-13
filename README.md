@@ -1,8 +1,17 @@
-<h1>Windows Server Active Directory Management Home Lab</h1>
+<h1>HoneyPots deployed in Azure and real-time attack monitored by two SIEMs</h1>
 
-<h2>Considerations</h2>
-In a real office environment, best practice suggests that a Domain Controller (DC) should have only one internal-facing network interface card (NIC) for security purposes. Furthermore, DCs and workstations should be placed on different subnets to enhance network isolation. Internet access should be routed through a proxy server and a firewall or router, ensuring the DC remains securely dedicated to its internal role.<br/>
+<h2>Intro</h2>
+<br/>In this lab, I deployed two honeypots in Azure—a Windows VM and a Linux VM—configured with minimal security settings. Both VMs have all ports open, the lowest security priority, and allow all network protocols and inbound traffic to simulate a highly vulnerable environment.<br/>
 
+<br/>The Windows VM is monitored by Microsoft Sentinel, while the Linux VM is monitored by Wazuh. The Linux VM was set up to use SSH credential login instead of key-based login to increase its susceptibility to brute-force attacks. This setup allows both SIEMs to capture real-time attack data on each VM.<br/>
+
+<h2>Utility Used</h2>
+Azure VM<br/>
+Azure Log Analytic Workplace<br/>
+Azure Defender For Cloud<br/>
+Azure Sentinel<br/>
+PowerShell<br/>
+Wazuh<br/>
 
 <br/>A Domain Controller (DC) should not be public-facing for these key reasons:<br/>
 
