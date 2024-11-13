@@ -59,7 +59,7 @@ After setting up your VM and NSG, you'll need to deploy a Log Analytics Workspac
 <br/><img src="https://imgur.com/29ZUjH6.png" height="80%" width="80%" alt="Create VMs"/><br/>
 <br/><img src="https://imgur.com/Chjv4r1.png" height="80%" width="80%" alt="Create VMs"/><br/>
 
-<br/>In Sentinel, you’ll also see detailed information like the attacker’s IP address and geolocation data, which makes it significantly more intuitive and visually informative than the standard Windows Event Viewer. This enhanced dashboard enables you to quickly assess security threats and understand where attacks are originating, providing a clear, actionable view of failed RDP attempts on your honeypot server.<br/>
+<br/>In Sentinel, you’ll also see detailed information like the attacker’s IP address and geolocation data, which makes it significantly more intuitive and visually informative than the standard Windows Event Viewer. This enhanced dashboard enables you to quickly assess security threats and understand where attacks are originating, providing a clear, actionable view of failed RDP attempts on your honeypot server. The image below displays the KQL (Kusto Query Language) query used to filter failed RDP login attempts, specifically by identifying Event ID 4625, which corresponds to failed logon events.<br/>
 <br/><img src="https://imgur.com/CMRkI9N.png" height="80%" width="80%" alt="Create VMs"/><br/>
 
 <br/>You can also display this data as geolocation points on a world map, showing where the botnet attackers are located. The image below is based on two hours of monitoring activity. If you keep your VM running, more results will accumulate, giving a broader picture of attack origins over time.<br/>
