@@ -1,4 +1,4 @@
-<h1>HoneyPots deployed in Azure and real-time attack monitored by two SIEMs</h1>
+<h1>HoneyPots deployed in Azure and real-time attack monitored by two SIEMs (Sentinel, Wazuh)</h1>
 
 <h2>Intro</h2>
 <br/>In this lab, I deployed two honeypots in Azure—a Windows VM and a Linux VM—configured with minimal security settings. Both VMs have all ports open, the lowest security priority, and allow all network protocols and inbound traffic to simulate a highly vulnerable environment.<br/>
@@ -9,22 +9,38 @@
 Azure VM<br/>
 Azure Log Analytic Workplace<br/>
 Azure Defender For Cloud<br/>
-Azure Sentinel<br/>
+Microsoft Sentinel<br/>
 PowerShell<br/>
 Wazuh<br/>
 
-<br/>A Domain Controller (DC) should not be public-facing for these key reasons:<br/>
+<h2>Part One: Microsoft Sentinel + Windows VM</h2>
 
-1. Security: DCs store sensitive data like user credentials, making them prime targets for attacks if exposed to the internet.<br/>
-2. Expanded Attack Surface: Public exposure increases the risk of exploitation through vulnerabilities in services like LDAP or DNS.<br/>
-3. Core Role: DCs handle critical internal tasks like authentication, and managing group policies. Which should remain within the internal network.<br/>
-4. Performance Impact: External traffic can degrade the DC's ability to efficiently perform vital internal operations.<br/>
+<b>Deploy VMs in Azure</b>
 
-<br/>It is also advisable to keep services like Remote Access Services (RAS) and other non-core functions off the DC. RAS should be deployed on a dedicated server, allowing the DC to focus on its core responsibilities without being subjected to additional security risks or performance issues.
+Set up your Windows and Linux VMs by specifying the VM name and setting a secure password for each. Set up a strong username and password to prevent user and password enumeration attacks, as we expect to receive many failed login attempts once deployed.
+<br/><img src="https://imgur.com/BlYZxwF.png" height="80%" width="80%" alt="Create VMs"/><br/>
 
-<br/>In a home lab environment, however, we have assigned two NICs to the DC (one internal and one external) to demonstrate the lab. This setup should never be used for real-world scenarios but serves to illustrate how to connect a workstation to the DC using Active Directory and allow the workstation to access the internet. Thus, the lab setup differs from the real-world configuration for educational purposes. Diagram 1 below should be the real-world scenario. Diagram 2 later is the demonstration of our home lab.<br/>
- 
-<p align="center">
-Diagram 1: <br/>
-<br/>
-<img src="https://imgur.com/b94665x.png" height="80%" width="80%" alt=""/>
+Go to the Network tab, select the NSG (Network Security Group). If you don't have one already, create a new NSG. We'll configure the NSG rules later. 
+<br/><img src="https://imgur.com/TT6J4SG.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
+To configure your Azure NSG, search for NSG in the search bar and go to the NSG settings. Delete any default NSG rule if it exists. Then, create your own rule (e.g., WindowsHoneyPot-nsg) and set the Destination Port Range from 8080 to "*", with the priority set to 100 (low priority). Choose any for the protocol. This will allow network traffic to visit all our VM ports, with a low priority setting, it makes the VM more vulnerable, effectively turning it into a honeypot designed to attract and observe malicious traffic.
+<br/><img src="https://imgur.com/JypYAe8.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
+After setting up your VM and NSG, you'll need to deploy a Log Analytics Workspace (LAW). First, search for "Log Analytics" in the Azure portal search bar, and click "Create." You can place the LAW in the same resource group as your VM. Once it's created, navigate to the VM you created, select the Windows VM, and click "Connect."
+<br/><img src="https://imgur.com/jHAObdq.png" height="80%" width="80%" alt="Create VMs"/><br/>
+<br/><img src="https://imgur.com/QO7GPvc.png" height="80%" width="80%" alt="Create VMs"/><br/>
+<br/><img src="https://imgur.com/intJJJD.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
+<br/>Setting up a Log Analytics Workspace (LAW) alone isn't enough to collect logs from your VM. To ensure a smooth log ingestion process and improve visibility, you need to integrate Microsoft Defender for Cloud and Microsoft Sentinel. These tools work together to optimize log collection, enhance security posture, and provide a comprehensive visual presentation of your data.<br/>
+
+<br/>To get started, search for Defender for Cloud in the Azure portal and navigate to Environment Settings. Under Azure Subscription 1, select the LAW you created(This LAW has been connected with the Windows VM). In the Defender Plan, deselect SQL Server and select Servers, then click Save. Lastly, go to the Data Collection tab and choose All Events to capture every alert, ensuring that no critical events are missed for monitoring and analysis. Enable Microsoft Defender and choose the LAW associated with your WindowsVM, it will start ingesting logs from your Windows VM in Azure, <br/>
+<br/><img src="https://imgur.com/bUg7y6j.png" height="80%" width="80%" alt="Create VMs"/><br/>
+<br/><img src="https://imgur.com/E7ULxNX.png" height="80%" width="80%" alt="Create VMs"/><br/>
+<br/><img src="https://imgur.com/vtAE75m.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
+<br/>After setting up the VM, Log Analytics Workspace (LAW), and Defender for Cloud, configure the example logs and ensure the correct log path is set for LAW to extract data. To enhance alert visualization with geolocation data, visit the IP Geolocation API site (https://ipgeolocation.io/) to register and obtain an API key. Keep this key saved securely, as it will be used in the PowerShell script to visualize alerts with IP geolocation data.<br/>
+<br/>On your host machine, use Remote Desktop Protocol (RDP) to connect to your Windows VM (you can locate the VM’s public IP address on its Azure page). To generate log data, try intentionally entering an incorrect password a few times. Once logged in, open Windows PowerShell ISE and run the provided command from this repository. This command saves all Event Viewer logs to a file named failed_rdp.log, including geolocation information for each entry. The file will be saved by default at C:\ProgramData\failed_rdp.log. Later, we'll use the Log Analytics Workspace (LAW) in Azure to ingest this log data and display it in Microsoft Sentinel for visualization. Remember to replace the $API_KEY variable to your API key obtained from IP Geo website.<br/>
+<br/><img src="https://imgur.com/NGhy5z8.png" height="80%" width="80%" alt="Create VMs"/><br/>
+<br/>After running the PS script, the failed_rdp.log will be automatically generated and saved. Copy this file path, we need to set this path to our LAW in Azure.<br/>
+<br/><img src="https://imgur.com/8XQERvh.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
