@@ -1,9 +1,7 @@
-<h1>HoneyPots deployed in Azure and real-time attack monitored by two SIEMs (Microsoft Sentinel, Wazuh)</h1>
+<h1>HoneyPots deployed in Azure and real-time attack monitored by Microsoft Sentinel</h1>
 <br/><img src="https://imgur.com/2ANt7E6.png" height="80%" width="80%" alt="Attacker Heatmap"/><br/>
 <h2>Intro</h2>
-<br/>In this lab, I deployed two honeypots in Azure—a Windows VM and a Linux VM—configured with minimal security settings. Both VMs have all ports open, the lowest security priority, and allow all network protocols and inbound traffic to simulate a highly vulnerable environment. The attacker heat map above is based on two hours of real-time monitoring.<br/>
-
-<br/>The Windows VM is monitored by Microsoft Sentinel, while the Linux VM is monitored by Wazuh. The Linux VM was set up to use SSH credential login instead of key-based login to increase its susceptibility to brute-force attacks. This setup allows both SIEMs to capture real-time attack data on each VM.<br/>
+<br/>In this lab, I deployed a Windows HoneyPot in Azure—configured with minimal security settings. The VM has all ports open, the lowest security priority, and allows all network protocols and inbound traffic to simulate a highly vulnerable environment. The attacker heat map above is based on two hours of real-time monitoring.<br/>
 
 <h2>Utility Used</h2>
 Azure VM<br/>
@@ -12,10 +10,8 @@ Azure Defender For Cloud<br/>
 Microsoft Sentinel<br/>
 PowerShell<br/>
 KQL<br/>
-Wazuh<br/>
 
-<h2>Part One: Microsoft Sentinel + Windows HoneyPot</h2>
-
+<h2>Process</h2>
 <b>Deploy VMs in Azure</b>
 
 Set up your Windows and Linux VMs by specifying the VM name and setting a secure password for each. Set up a strong username and password to prevent user and password enumeration attacks, as we expect to receive many failed login attempts once deployed.
