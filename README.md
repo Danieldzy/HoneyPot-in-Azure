@@ -11,6 +11,7 @@ Azure Log Analytic Workplace<br/>
 Azure Defender For Cloud<br/>
 Microsoft Sentinel<br/>
 PowerShell<br/>
+KQL<br/>
 Wazuh<br/>
 
 <h2>Part One: Microsoft Sentinel + Windows VM</h2>
@@ -53,3 +54,13 @@ After setting up your VM and NSG, you'll need to deploy a Log Analytics Workspac
 <br/>Now, let’s set up Microsoft Sentinel. In Azure, search for Sentinel and create a new instance. Select the Log Analytics Workspace (LAW) you previously set up, then add Microsoft Sentinel to this workspace. Once complete, the Sentinel dashboard will be available, providing centralized monitoring and analysis.<br/>
 <br/><img src="https://imgur.com/XfQgTHQ.png" height="80%" width="80%" alt="Create VMs"/><br/>
 <br/><img src="https://imgur.com/NCmjozN.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
+<br/>From the Sentinel dashboard, you can create custom workbooks with flexible layouts and visualizations to suit your monitoring needs. As you build out your workbook, you’ll see that logs are already being visualized in real time. You can also navigate to the Logs section to enter KQL (Kusto Query Language) queries for more detailed analysis. For example, using a query for Security Event ID 4625 will display failed RDP login attempts. Over time, as botnets worldwide attempt to access your honeypot server, additional failed login events will appear in the logs.<br/>
+<br/><img src="https://imgur.com/29ZUjH6.png" height="80%" width="80%" alt="Create VMs"/><br/>
+<br/><img src="https://imgur.com/Chjv4r1.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
+<br/>In Sentinel, you’ll also see detailed information like the attacker’s IP address and geolocation data, which makes it significantly more intuitive and visually informative than the standard Windows Event Viewer. This enhanced dashboard enables you to quickly assess security threats and understand where attacks are originating, providing a clear, actionable view of failed RDP attempts on your honeypot server.<br/>
+<br/><img src="https://imgur.com/CMRkI9N.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
+<br/>You can also display this data as geolocation points on a world map, showing where the botnet attackers are located. The image below is based on two hours of monitoring activity. If you keep your VM running, more results will accumulate, giving a broader picture of attack origins over time.<br/>
+<br/><img src="https://imgur.com/2ANt7E6.png" height="80%" width="80%" alt="Create VMs"/><br/>
