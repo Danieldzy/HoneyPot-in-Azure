@@ -48,3 +48,8 @@ After setting up your VM and NSG, you'll need to deploy a Log Analytics Workspac
 <br/>Back in Azure, go to your Log Analytics Workspace (LAW), select Tables, and create a new custom log (MMA-based). Under the Sample tab, paste the log data from failed_rdp.log that you generated on the VM, then click Next. Choose Windows and in the Path field, accurately enter C:\ProgramData\failed_rdp.log to ensure LAW can properly extract data from this log file.<br/>
 <br/><img src="https://imgur.com/U5DExJS.png" height="80%" width="80%" alt="Create VMs"/><br/>
 <br/><img src="https://imgur.com/D7viX4k.png" height="80%" width="80%" alt="Create VMs"/><br/>
+
+
+<br/>Now, let’s set up Microsoft Sentinel. In Azure, search for Sentinel and create a new instance. Select the Log Analytics Workspace (LAW) you previously set up, then add Microsoft Sentinel to this workspace. Once complete, the Sentinel dashboard will be available, providing centralized monitoring and analysis.<br/>
+<br/><img src="https://imgur.com/XfQgTHQ.png" height="80%" width="80%" alt="Create VMs"/><br/>
+<br/><img src="https://imgur.com/NCmjozN.png" height="80%" width="80%" alt="Create VMs"/><br/>
