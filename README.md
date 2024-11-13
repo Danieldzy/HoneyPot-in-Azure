@@ -1,5 +1,5 @@
 <h1>HoneyPots deployed in Azure and real-time attack monitored by two SIEMs (Sentinel, Wazuh)</h1>
-
+<br/><img src="https://imgur.com/2ANt7E6.png" height="80%" width="80%" alt="Create VMs"/><br/>
 <h2>Intro</h2>
 <br/>In this lab, I deployed two honeypots in Azure—a Windows VM and a Linux VM—configured with minimal security settings. Both VMs have all ports open, the lowest security priority, and allow all network protocols and inbound traffic to simulate a highly vulnerable environment.<br/>
 
