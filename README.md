@@ -44,3 +44,7 @@ After setting up your VM and NSG, you'll need to deploy a Log Analytics Workspac
 <br/>After running the PS script, the failed_rdp.log will be automatically generated and saved. Copy this file path, we need to set this path to our LAW in Azure.<br/>
 <br/><img src="https://imgur.com/8XQERvh.png" height="80%" width="80%" alt="Create VMs"/><br/>
 
+
+<br/>Back in Azure, go to your Log Analytics Workspace (LAW), select Tables, and create a new custom log (MMA-based). Under the Sample tab, paste the log data from failed_rdp.log that you generated on the VM, then click Next. Choose Windows and in the Path field, accurately enter C:\ProgramData\failed_rdp.log to ensure LAW can properly extract data from this log file.<br/>
+<br/><img src="https://imgur.com/U5DExJS.png" height="80%" width="80%" alt="Create VMs"/><br/>
+<br/><img src="https://imgur.com/D7viX4k.png" height="80%" width="80%" alt="Create VMs"/><br/>
