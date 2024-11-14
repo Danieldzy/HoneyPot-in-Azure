@@ -23,7 +23,7 @@ Go to the Network tab, select the NSG (Network Security Group). If you don't hav
 <br/>To configure your Azure NSG, search for NSG in the search bar and go to the NSG settings. Delete any default NSG rule if it exists. Then, create your own rule (e.g., WindowsHoneyPot-nsg) and set the Destination Port Range from 8080 to "*", with the priority set to 100 (low priority). Choose any for the protocol. This will allow network traffic to visit all our VM ports, with a low priority setting, it makes the VM more vulnerable, effectively turning it into a honeypot designed to attract and observe malicious traffic.<br/>
 <br/><img src="https://imgur.com/JypYAe8.png" height="80%" width="80%" alt="Create VMs"/><br/>
 
-After setting up your VM and NSG, you'll need to deploy a Log Analytics Workspace (LAW). First, search for "Log Analytics" in the Azure portal search bar, and click "Create." You can place the LAW in the same resource group as your VM. Once it's created, navigate to the VM you created, select the Windows VM, and click "Connect."
+After setting up your VM and NSG, you'll need to deploy a Log Analytics Workspace (LAW). First, search for "Log Analytic Workspace" in the Azure portal search bar, and click "Create." You can place the LAW in the same resource group as your VM. Once it's created, navigate to the VM you created, select the Windows VM, and click "Connect."
 <br/><img src="https://imgur.com/jHAObdq.png" height="80%" width="80%" alt="Create VMs"/><br/>
 <br/><img src="https://imgur.com/QO7GPvc.png" height="80%" width="80%" alt="Create VMs"/><br/>
 <br/><img src="https://imgur.com/intJJJD.png" height="80%" width="80%" alt="Create VMs"/><br/>
