@@ -14,7 +14,7 @@ KQL<br/>
 <h2>Process</h2>
 <b>Deploy VMs in Azure</b>
 
-Set up your Windows and Linux VMs by specifying the VM name and setting a secure password for each. Set up a strong username and password to prevent user and password enumeration attacks, as we expect to receive many failed login attempts once deployed.
+Set up your Windows VMs by specifying the VM name and setting a secure password. Set up a strong username and password to prevent user and password enumeration attacks, as we expect to receive many failed login attempts once deployed.
 <br/><img src="https://imgur.com/BlYZxwF.png" height="80%" width="80%" alt="Create VMs"/><br/>
 
 Go to the Network tab, select the NSG (Network Security Group). If you don't have one already, create a new NSG. We'll configure the NSG rules later. 
